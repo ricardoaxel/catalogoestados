@@ -1,0 +1,40 @@
+<% include partials/_header %>
+
+<h1>Municipios de <%= name[0].Nombre %></h1>
+<div class="col-md-10 mt-3">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Tipo de Zona</td>
+            <td>Número de habitantaes</td>
+            <td>Pueblo mágico</td>
+            <td>Tipo</td>
+            <td>Acciones</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (data) { %>
+            <% for(var i = 0; i < data.length; i++) { %>
+              <tr>
+
+                <td><%= data[i].Id_Municipio %></td>
+                <td><%= data[i].Nombre %></td>
+                <td><%= data[i].Tipo_zona %></td>
+                <td><%= data[i].N_Habitantes %></td>
+                <td><%= data[i].Es_pm %></td>
+                <td><%= data[i].Tipo_des %></td>
+                <td>
+                  <a href="/updatemun/<%= data[i].Id_Municipio %>" class="btn btn-info btn-sm">Editar</a>
+                  <a href="/deletemun/<%= data[i].Id_Municipio %>" class="btn btn-danger btn-sm">Borrar</a>
+                </td>
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+</div>
+
+
+<% include partials/_footer %>

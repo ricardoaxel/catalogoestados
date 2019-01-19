@@ -1,0 +1,110 @@
+<% include partials/_header %>
+<div class="container mt-3">
+  <div class="row">
+    <!--Despliegue de estados-->
+    <div class="col-md-7">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Capital</td>
+            <td>Número de habitantes</td>
+            <td>Acciones</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (data) { %>
+            <% for(var i = 0; i < data.length; i++) { %>
+              <tr>
+                <td><%= data[i].Id_Estado%></td>
+                <td><%= data[i].Nombre %></td>
+                <td><%= data[i].Capital %></td>
+                <td><%= data[i].N_Habitantes %></td>
+                <td>
+                  <a href="/update/<%= data[i].Id_Estado %>" class="btn btn-info btn-sm">Editar</a>
+                  <a href="/delete/<%= data[i].Id_Estado %>" class="mt-1 btn btn-danger btn-sm">Borrar</a>
+                  <a href="/mostrarmunicipios/<%= data[i].Id_Estado %>" class=" mt-1 btn btn-outline-secondary btn-sm">Ver Municipios</a>
+                </td>
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <!-- Seccion derecha del sitio -->
+    <div class="col-md-5">
+      <!--Formulario para añadir estados-->
+      <div class="card-body">
+        <h1>Añadir estado</h1>
+        <form action="/add" method="POST">
+          <div class="form-group">
+            <input type="text" name="Nombre" placeholder="Nombre" class="form-control" pattern="^[a-zA-Z\sÀ-ÿ\u00f1\u00d1*]*$" autofocus required="" >
+          </div>
+          <div class="form-group">
+            <input type="text" name="N_Habitantes" placeholder="Numero de habitantes" pattern="^[0-9]*$" class="form-control" autofocus required="">
+          </div>
+          <div class="form-group">
+            <input type="text" name="Capital" placeholder="Capital" pattern="^[a-zA-Z\sÀ-ÿ\u00f1\u00d1*]*$" class="form-control" autofocus required="">
+          </div>
+          <button type="submit" class="btn btn-primary" >
+            Agregar estado
+          </button>
+        </form>
+
+      <!--Formulario para añadir municipios-->
+      <h1 class="container mt-3">Añadir municipio</h1>
+        <form action="/addmun" method="POST">
+          <div class="form-group">
+            <select type="text" name="Id_Estado" placeholder="Estado procedente" class="form-control" autofocus required="">
+              <option value="" disabled selected>ID del Estado procedente</option>
+                <% for(var i = 0; i < data.length; i++) { %>
+                  <option><%= data[i].Id_Estado %></option>
+                <%}%>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" name="Nombre" placeholder="Nombre" class="form-control" autofocus pattern="^[a-zA-Z\sÀ-ÿ\u00f1\u00d1*]*$" required="">
+          </div>     
+          <div class="form-group">
+            <select type="text" name="Tipo_zona" placeholder="Tipo de Zona" class="form-control" autofocus required="">
+              <option value="" disabled selected>Tipo de zona</option>
+              <option>Urbana</option>
+              <option>Rural</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select type="text" name="N_Habitantes" placeholder="Número de habitantes" class="form-control" autofocus required="">
+              <option value="" disabled selected>Número de habitantes</option>
+              <option>1 a 1000</option>
+              <option>1001 a 10000</option>
+              <option>10001 a 100000</option>
+              <option>100001 a 1000000</option>
+              <option>más de 1000000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select type="text" name="Es_pm" placeholder="¿Es pueblo mágico?" class="form-control" autofocus required="">
+            <option value="" disabled selected>¿Es pueblo mágico?</option>
+              <option>Sí</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select type="text" name="Tipo_des" placeholder="Tipo" class="form-control" autofocus required="">
+            <option value="" disabled selected>Tipo</option>
+              <option>Playa</option>
+              <option>Ciudad</option>
+              <option>Montaña</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Agregar Municipio
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include partials/_footer %>
